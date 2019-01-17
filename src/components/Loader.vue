@@ -1,7 +1,7 @@
 <template>
-  <v-container class="pa-5 ma-5">
+  <v-layout fill-height align-center justify-center ma-5 pa-5>
     <v-progress-circular :size="80" :width="8" indeterminate color="accent"/>
-  </v-container>
+  </v-layout>
 </template>
 
 <script lang="ts">
