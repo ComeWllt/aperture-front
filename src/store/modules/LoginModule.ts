@@ -1,4 +1,10 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+import {
+  Module,
+  VuexModule,
+  Mutation,
+  Action,
+  getModule,
+} from 'vuex-module-decorators';
 import Cookies from 'js-cookie';
 import {
   SIGN_ON,
@@ -7,10 +13,12 @@ import {
   SHOW_REQUEST_ERROR,
   HIDE_REQUEST_ERROR,
 } from '../constants/mutation-types';
-import { SUBMIT_AUTHENTICATION } from '../constants/action-types';
+import { SUBMIT_AUTHENTICATION, FETCH_DATA } from '../constants/action-types';
 import LoginHelper from '@/store/helpers/LoginHelper';
 import { IApiConfig, ILoginPayload, isError } from '@/interfaces/loginConfig';
 import router from '@/router';
+import ErrorModule from '@/store/modules/ErrorModule';
+import DataModule from '@/store/modules/DataModule';
 
 @Module({ namespaced: true, name: 'LoginModule' })
 export default class LoginModule extends VuexModule {
@@ -49,30 +57,26 @@ export default class LoginModule extends VuexModule {
 
   @Action
   public async [SUBMIT_AUTHENTICATION](payload: ILoginPayload): Promise<void> {
-    const context = this.context;
-    context.commit(AUTHENTICATION_FAILURE, { failure: false });
+    const errorModule = getModule(ErrorModule);
+    const dataModule = getModule(DataModule);
+    this[AUTHENTICATION_FAILURE]({ failure: false });
     try {
       const authenticationResponse = await LoginHelper.submitAuthentication(
         payload
       );
       if (isError(authenticationResponse)) {
         console.error('Failed to login', authenticationResponse.msg);
-        context.commit(AUTHENTICATION_FAILURE, { failure: true });
-        context.commit(
-          `ErrorModule/${SHOW_REQUEST_ERROR}`,
-          { errorText: authenticationResponse.msg },
-          { root: true }
-        );
+        this[AUTHENTICATION_FAILURE]({ failure: true });
+        errorModule[SHOW_REQUEST_ERROR]({
+          errorText: authenticationResponse.msg,
+        });
       } else {
         Cookies.set('token', authenticationResponse.token, {
           expires: 1,
         });
-        context.commit(SIGN_ON, {
-          token: authenticationResponse.token,
-        });
-        context.commit(`ErrorModule/${HIDE_REQUEST_ERROR}`, undefined, {
-          root: true,
-        });
+        this[SIGN_ON]({ token: authenticationResponse.token });
+        errorModule[HIDE_REQUEST_ERROR]();
+        dataModule[FETCH_DATA]().catch(error => console.error(error));
       }
     } catch (error) {
       console.log(error);
