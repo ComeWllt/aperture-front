@@ -15,9 +15,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "js-cookie": "^2.2.0",
+    "moment": "^2.23.0",
     "vue": "^2.5.21",
     "vue-axios": "^2.1.4",
     "vue-class-component": "^6.0.0",
+    "vue-cloudinary": "^0.2.1",
+    "vue-infinite-scroll": "^2.0.2",
+    "vue-masonry": "^0.11.7",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.10.5",
