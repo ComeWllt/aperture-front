@@ -17,6 +17,7 @@ import { SUBMIT_AUTHENTICATION, FETCH_DATA } from '../constants/action-types';
 import LoginHelper from '@/store/helpers/LoginHelper';
 import { IApiConfig, ILoginPayload, isError } from '@/interfaces/loginConfig';
 import router from '@/router';
+import secrets from '@/assets/secrets.json';
 import ErrorModule from '@/store/modules/ErrorModule';
 import DataModule from '@/store/modules/DataModule';
 
@@ -24,7 +25,7 @@ import DataModule from '@/store/modules/DataModule';
 export default class LoginModule extends VuexModule {
   public isLoggedIn: boolean = !!Cookies.get('token');
   public failedToAuthenticate: boolean = false;
-  public backendURL: string = 'http://localhost:3000';
+  public backendURL: string = secrets.backendUrl;
   public apiConfig: IApiConfig = {
     headers: { Authorization: `JWT ${Cookies.get('token') || 'null'}` },
   };
