@@ -1,6 +1,6 @@
 # Aperture Front-End
 
-This is a photo gallery Front-End, written in Vue.js, Vuex and Typescript.
+This is a photo gallery Front-End, written in Vue.js, Vuex and TypeScript.
 
 ### Project setup
 
