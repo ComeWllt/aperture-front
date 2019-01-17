@@ -1,5 +1,7 @@
 # Aperture Front-End
 
+This is a photo gallery Front-End, written in Vue.js, Vuex and Typescript.
+
 ### Project setup
 
 ```
@@ -44,7 +46,8 @@ npm run bndLoc
 - [Vue Property Decorator](https://github.com/kaorun343/vue-property-decorator) as TypeScript decorator for class-style Vue components.
 - [Vuex](https://vuex.vuejs.org/installation.html), [vuex-class](https://github.com/ktsn/vuex-class) and [vuex-module-decorators](https://championswimmer.in/vuex-module-decorators/) for state management.
 - [Vue Router](https://router.vuejs.org/installation.html#direct-download-cdn) for routing.
-- [Vuetify](https://vuetifyjs.com/en/getting-started/quick-start) for UI.
+- [Vuetify](https://vuetifyjs.com/en/getting-started/quick-start) and [vue-masonry](https://github.com/shershen08/vue-masonry for UI.
+- [vue-cloudinary](https://github.com/diegopamio/vue-cloudinary) to fetch images from [Cloudinary](https://cloudinary.com/).
 - [axios](https://github.com/axios/axios) as HTTP client.
 - [Mocha](https://mochajs.org) and [Vue Test Utils](https://vue-test-utils.vuejs.org) for testing.
 - [TSLint](https://palantir.github.io/tslint/) as linter for TypeScript and [Prettier](https://prettier.io/).
