@@ -11,7 +11,8 @@ import {
   IS_LOADING_DATA,
 } from '@/store/constants/mutation-types';
 import {
-  FORMATTED_ALBUMS,
+  GET_FORMATTED_ALBUMS,
+  GET_PORTFOLIO,
   GET_ALBUM_BY_TITLE,
 } from '@/store/constants/getter-types';
 import { IPortfolio, IAlbum, IFormattedAlbum } from '@/interfaces/data';
@@ -85,7 +86,7 @@ export default class DataModule extends VuexModule {
     this[IS_LOADING_DATA]({ dataType: 'portfolio', isLoading: false });
   }
 
-  get [FORMATTED_ALBUMS](): IFormattedAlbum[] {
+  get [GET_FORMATTED_ALBUMS](): IFormattedAlbum[] {
     return this.albums.map(album => {
       return {
         ...album,
@@ -93,9 +94,11 @@ export default class DataModule extends VuexModule {
       };
     });
   }
-
   get [GET_ALBUM_BY_TITLE](): IAlbum | {} {
     return (title: string) =>
-      this[FORMATTED_ALBUMS].find(album => album.title === title) || {};
+      this[GET_FORMATTED_ALBUMS].find(album => album.title === title) || {};
+  }
+  get [GET_PORTFOLIO](): IPortfolio {
+    return this.portfolio;
   }
 }
