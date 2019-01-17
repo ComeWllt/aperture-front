@@ -1,0 +1,10 @@
+export const SHOW_REQUEST_ERROR = 'SHOW_REQUEST_ERROR';
+
+export const HIDE_REQUEST_ERROR = 'HIDE_REQUEST_ERROR';
+
+export const SIGN_ON = 'SIGN_ON';
+
+export const SIGN_OUT = 'SIGN_OUT';
+
+export const AUTHENTICATION_FAILURE = 'AUTHENTICATION_FAILURE';
+
