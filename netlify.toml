@@ -1,0 +1,4 @@
+[build]
+  base    = ""
+  command = "sed 's%_CLOUD_NAME_%'$CLOUD_NAME'%g; s%_API_KEY_%'$API_KEY'%g; s%_API_SECRET_%'$API_SECRET'%g; s%_GOOGLE_MAP_KEY_%'$GOOGLE_MAP_API_KEY'%g' src/assets/secrets.template.json > src/assets/secrets.json && npm run build"
+  publish = "dist"
