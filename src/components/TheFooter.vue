@@ -17,7 +17,4 @@ export default class TheFooter extends Vue {
 </script>
 
 <style scoped>
-.v-footer {
-  z-index: 100;
-}
 </style>

@@ -6,6 +6,9 @@ import HomeView from '@/views/HomeView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import PatchNotesView from '@/views/PatchNotesView.vue';
 import LoginView from '@/views/LoginView.vue';
+import PortfolioView from '@/views/PortfolioView.vue';
+import AlbumsView from '@/views/AlbumsView.vue';
+import SingleAlbumView from '@/views/SingleAlbumView.vue';
 
 Vue.use(Router);
 
@@ -23,6 +26,24 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/portfolio',
+      name: 'portfolio',
+      component: PortfolioView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/albums',
+      name: 'albums',
+      component: AlbumsView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/albums/:albumid',
+      name: 'album',
+      component: SingleAlbumView,
       meta: { requiresAuth: true },
     },
     {

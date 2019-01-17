@@ -2,7 +2,7 @@
   <v-app>
     <TheNavBar class="d-inline-block elevation-12"/>
     <v-content>
-      <keep-alive :include="['HomeView', 'PatchNotesView']">
+      <keep-alive :include="['HomeView', 'PatchNotesView', 'AlbumsView']">
         <router-view/>
       </keep-alive>
     </v-content>
