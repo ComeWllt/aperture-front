@@ -8,3 +8,8 @@ export const SIGN_OUT = 'SIGN_OUT';
 
 export const AUTHENTICATION_FAILURE = 'AUTHENTICATION_FAILURE';
 
+export const SET_ALBUMS = 'SET_ALBUMS';
+
+export const SET_PORTFOLIO = 'SET_PORTFOLIO';
+
+export const IS_LOADING_DATA = 'IS_LOADING_DATA';

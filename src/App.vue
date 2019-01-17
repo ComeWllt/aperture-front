@@ -13,6 +13,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import { FETCH_DATA } from '@/store/constants/action-types.ts';
 import TheNavBar from '@/components/TheNavBar.vue';
 import TheFooter from '@/components/TheFooter.vue';
 import ErrorSnackBar from '@/components/ErrorSnackBar.vue';
@@ -25,6 +27,17 @@ import ErrorSnackBar from '@/components/ErrorSnackBar.vue';
   },
 })
 export default class App extends Vue {
+  @namespace('LoginModule').State('isLoggedIn')
+  private isLoggedIn!: boolean;
+
+  @namespace('DataModule').Action(FETCH_DATA)
+  private fetchData!: () => Promise<void>;
+
+  private created() {
+    if (this.isLoggedIn) {
+      this.fetchData().catch(error => console.error(error));
+    }
+  }
 }
 </script>
 
