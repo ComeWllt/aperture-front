@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import secrets from '@/assets/secrets.json';
 import {
   ILoginPayload,
   ILoginResponse,
@@ -25,5 +26,5 @@ export default class LoginHelper {
     );
     return result.data;
   }
-  private static backendAuthURL = 'http://localhost:3000/api/signin';
+  private static backendAuthURL: string = `${secrets.backendUrl}/api/signin`;
 }
