@@ -1,32 +1,33 @@
 import Vue from 'vue';
+import { getModule } from 'vuex-module-decorators';
 import axios, { AxiosError } from 'axios';
 import VueAxios from 'vue-axios';
-import store from '@/store';
-import {
-  SHOW_REQUEST_ERROR,
-  SIGN_OUT,
-} from '@/store/constants/mutation-types';
+import { SHOW_REQUEST_ERROR, SIGN_OUT } from '@/store/constants/mutation-types';
+import ErrorModule from '@/store/modules/ErrorModule';
+import LoginModule from '@/store/modules/LoginModule';
 
 Vue.use(VueAxios, axios);
 
 Vue.axios.interceptors.response.use(
   response => response,
   (error: AxiosError) => {
+    const errorModule = getModule(ErrorModule);
+    const loginModule = getModule(LoginModule);
     if (!error.response) {
-      store.commit(`ErrorModule/${SHOW_REQUEST_ERROR}`, {
+      errorModule[SHOW_REQUEST_ERROR]({
         errorText: 'Oops, there has been an error...',
       });
       return Promise.reject(error);
     }
     switch (error.response.status) {
       case 401:
-        store.commit(`ErrorModule/${SHOW_REQUEST_ERROR}`, {
+        errorModule[SHOW_REQUEST_ERROR]({
           errorText: 'Your credentials have expired...',
         });
-        store.commit(`LoginModule/${SIGN_OUT}`);
+        loginModule[SIGN_OUT]();
         return Promise.reject(error);
       default:
-        store.commit(`ErrorModule/${SHOW_REQUEST_ERROR}`, {
+        errorModule[SHOW_REQUEST_ERROR]({
           errorText: 'Oops, there has been an error...',
         });
         return Promise.reject(error);

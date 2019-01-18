@@ -37,10 +37,12 @@ import { IAlbum } from '@/interfaces/data';
 export default class SingleAlbumView extends Vue {
   @namespace('DataModule').State('isLoadingAlbums')
   private isLoading!: boolean;
+  @namespace('DataModule').Getter(GET_ALBUM_BY_TITLE)
+  private getAlbumByTitle!: (title: string) => IAlbum | {};
 
-  get album(): IAlbum {
+  get album(): IAlbum | {} {
     const title = this.$route.params.albumid;
-    return this.$store.getters[`DataModule/${GET_ALBUM_BY_TITLE}`](title);
+    return this.getAlbumByTitle(title);
   }
 }
 </script>
