@@ -9,6 +9,7 @@ import {
   SET_ALBUMS,
   SET_PORTFOLIO,
   IS_LOADING_DATA,
+  SET_ALBUM_DESCRIPTION,
 } from '@/store/constants/mutation-types';
 import {
   GET_FORMATTED_ALBUMS,
@@ -40,6 +41,14 @@ export default class DataModule extends VuexModule {
   @Mutation
   public [SET_PORTFOLIO](payload: { portfolio: IPortfolio }): void {
     this.portfolio = payload.portfolio;
+  }
+  @Mutation
+  public [SET_ALBUM_DESCRIPTION](payload: {
+    albumId: string;
+    newDescription: string;
+  }): void {
+    const index = this.albums.findIndex(album => album._id === payload.albumId);
+    if (index >= 0) this.albums[index].description = payload.newDescription;
   }
   @Mutation
   public [IS_LOADING_DATA](payload: {
@@ -94,9 +103,34 @@ export default class DataModule extends VuexModule {
       };
     });
   }
-  get [GET_ALBUM_BY_TITLE](): IAlbum | {} {
-    return (title: string) =>
-      this[GET_FORMATTED_ALBUMS].find(album => album.title === title) || {};
+  get [GET_ALBUM_BY_TITLE](): (title: string) => IFormattedAlbum {
+    return (title: string) => {
+      const empty = {
+        photos: [],
+        _id: '',
+        title: 'Loading...',
+        date: '',
+        formattedDate: '',
+        author: '',
+        albumCover: '',
+        location: {
+          _id: '',
+          country: '',
+          city: '',
+          lat: 48.855542,
+          lng: 2.345661,
+        },
+        description: '',
+        createdAt: '',
+        updatedAt: '',
+        __v: 0,
+      };
+      const found = this[GET_FORMATTED_ALBUMS].find(
+        album => album.title === title
+      );
+      if (found) return found;
+      return empty;
+    };
   }
   get [GET_PORTFOLIO](): IPortfolio {
     return this.portfolio;

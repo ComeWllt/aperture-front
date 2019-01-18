@@ -23,7 +23,7 @@ import AlbumDetails from '@/components/AlbumDetails.vue';
 import AlbumMap from '@/components/AlbumMap.vue';
 import Gallery from '@/components/Gallery.vue';
 import Loader from '@/components/Loader.vue';
-import { IAlbum } from '@/interfaces/data';
+import { IFormattedAlbum } from '@/interfaces/data';
 
 @Component({
   components: {
@@ -38,9 +38,9 @@ export default class SingleAlbumView extends Vue {
   @namespace('DataModule').State('isLoadingAlbums')
   private isLoading!: boolean;
   @namespace('DataModule').Getter(GET_ALBUM_BY_TITLE)
-  private getAlbumByTitle!: (title: string) => IAlbum | {};
+  private getAlbumByTitle!: (title: string) => IFormattedAlbum;
 
-  get album(): IAlbum | {} {
+  get album(): IFormattedAlbum {
     const title = this.$route.params.albumid;
     return this.getAlbumByTitle(title);
   }

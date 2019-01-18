@@ -33,7 +33,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import secrets from '@/assets/secrets.json';
 import { GET_FORMATTED_ALBUMS } from '@/store/constants/getter-types';
-import { IAlbum } from '@/interfaces/data';
+import { IFormattedAlbum } from '@/interfaces/data';
 import Loader from '@/components/Loader.vue';
 
 @Component({ components: { Loader } })
@@ -44,9 +44,9 @@ export default class AlbumsView extends Vue {
   @namespace('DataModule').State('isLoadingAlbums')
   private isLoading!: boolean;
   @namespace('DataModule').Getter(GET_FORMATTED_ALBUMS)
-  private albums!: IAlbum[];
+  private albums!: IFormattedAlbum[];
 
-  private goToAlbumPage(album: IAlbum) {
+  private goToAlbumPage(album: IFormattedAlbum) {
     this.$router.push(`/albums/${album.title}`);
   }
 }

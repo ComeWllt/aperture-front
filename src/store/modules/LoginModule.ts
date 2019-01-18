@@ -24,6 +24,7 @@ import DataModule from '@/store/modules/DataModule';
 @Module({ namespaced: true, name: 'LoginModule' })
 export default class LoginModule extends VuexModule {
   public isLoggedIn: boolean = !!Cookies.get('token');
+  public isAdmin: boolean = Cookies.get('admin') === 'true';
   public failedToAuthenticate: boolean = false;
   public backendURL: string = secrets.backendUrl;
   public apiConfig: IApiConfig = {
@@ -31,9 +32,10 @@ export default class LoginModule extends VuexModule {
   };
 
   @Mutation
-  public [SIGN_ON](payload: { token: string }): void {
+  public [SIGN_ON](payload: { token: string; isAdmin: boolean }): void {
     this.apiConfig.headers.Authorization = `JWT ${payload.token}`;
     this.isLoggedIn = true;
+    this.isAdmin = payload.isAdmin;
     // use (router as any) because of a types issue
     router.push((router as any).history.current.query.redirect || '/');
   }
@@ -75,7 +77,13 @@ export default class LoginModule extends VuexModule {
         Cookies.set('token', authenticationResponse.token, {
           expires: 1,
         });
-        this[SIGN_ON]({ token: authenticationResponse.token });
+        Cookies.set('admin', authenticationResponse.isAdmin.toString(), {
+          expires: 1,
+        });
+        this[SIGN_ON]({
+          token: authenticationResponse.token,
+          isAdmin: authenticationResponse.isAdmin,
+        });
         errorModule[HIDE_REQUEST_ERROR]();
         dataModule[FETCH_DATA]().catch(error => console.error(error));
       }

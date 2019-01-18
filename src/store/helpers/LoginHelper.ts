@@ -12,18 +12,10 @@ export default class LoginHelper {
   ): Promise<ILoginResponse | ILoginError> {
     const result: AxiosResponse<
       ILoginResponse | ILoginError
-    > = await axios.post(
-      this.backendAuthURL,
-      JSON.stringify({
-        username: payload.username,
-        password: payload.password,
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    > = await axios.post(this.backendAuthURL, {
+      username: payload.username,
+      password: payload.password,
+    });
     return result.data;
   }
   private static backendAuthURL: string = `${secrets.backendUrl}/api/signin`;

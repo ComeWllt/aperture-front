@@ -6,18 +6,20 @@
       <span class="grey--text">{{ date }}</span>
     </v-card-title>
     <v-divider/>
-    <v-card-text class="text-xs-left">{{ description }}</v-card-text>
+    <v-card-text :key="index" v-for="(line, index) in description.split('\n')" class="text-xs-left">{{ line }}</v-card-text>
+    <EditAlbumDescription/>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import EditAlbumDescription from '@/components/EditAlbumDescription.vue';
 
-@Component
+@Component({ components: { EditAlbumDescription } })
 export default class AlbumDetails extends Vue {
-  @Prop({ type: String, default: 'Loading...' }) private title!: string;
-  @Prop({ type: String, default: '' }) private date!: string;
-  @Prop({ type: String, default: '' }) private description!: string;
+  @Prop({ type: String, required: true }) private title!: string;
+  @Prop({ type: String, required: true }) private date!: string;
+  @Prop({ type: String, required: true }) private description!: string;
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-xs-center">
-      <v-dialog v-model="dialog" :lazy="true" :scrollable="true" :light="true">
+      <v-dialog content-class="galleryDialog" v-model="dialog" :lazy="true" :scrollable="true" :light="true">
         <Carousel :index="index" :close-dialog="closeDialog" :photos="photos" :album-title="albumTitle"/>
         <v-btn v-if="index>0" :style="{'bottom': '50%', 'left': '50px'}" class="hidden-xs-only" color="accent" dark fab fixed @click="index -= 1">
           <v-icon :style="{'height': 'auto'}">chevron_left</v-icon>
@@ -94,10 +94,9 @@ export default class Gallery extends Vue {
 </style>
 
 <style >
-.v-dialog {
+.galleryDialog {
   box-shadow: none !important;
 }
-
 .v-overlay--active:before {
   opacity: 0.9 !important;
 }

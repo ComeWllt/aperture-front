@@ -12,6 +12,7 @@ export interface ILoginPayload {
 export interface ILoginResponse {
   success: boolean;
   token: string;
+  isAdmin: boolean;
 }
 
 export interface ILoginError {

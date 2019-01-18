@@ -12,4 +12,6 @@ export const SET_ALBUMS = 'SET_ALBUMS';
 
 export const SET_PORTFOLIO = 'SET_PORTFOLIO';
 
+export const SET_ALBUM_DESCRIPTION = 'SET_ALBUM_DESCRIPTION';
+
 export const IS_LOADING_DATA = 'IS_LOADING_DATA';
