@@ -85,10 +85,12 @@ export default class LoginModule extends VuexModule {
           isAdmin: authenticationResponse.isAdmin,
         });
         errorModule[HIDE_REQUEST_ERROR]();
-        dataModule[FETCH_DATA]().catch(error => console.error(error));
+        dataModule[FETCH_DATA]().catch(error => {
+          console.error(error);
+        });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 }

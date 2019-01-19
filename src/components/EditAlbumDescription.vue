@@ -32,12 +32,8 @@ import axios from 'axios';
 import { namespace } from 'vuex-class';
 import { GET_ALBUM_BY_TITLE } from '@/store/constants/getter-types';
 import { IFormattedAlbum } from '@/interfaces/data';
-import {
-  SHOW_REQUEST_ERROR,
-  SET_ALBUM_DESCRIPTION,
-} from '@/store/constants/mutation-types';
-import ErrorModule from '@/store/modules/ErrorModule';
-import DataModule from '@/store/modules/DataModule';
+import { SUBMIT_ALBUM_DESCRIPTION } from '@/store/constants/action-types';
+import AdminModule from '@/store/modules/AdminModule';
 import ApiCallsHelper from '@/store/helpers/ApiCallsHelper';
 
 @Component
@@ -70,24 +66,18 @@ export default class EditAlbumDescription extends Vue {
 
   private async submit() {
     this.isLoadingSumbission = true;
-    const errorModule = getModule(ErrorModule);
-    const dataModule = getModule(DataModule);
+    const adminModule = getModule(AdminModule);
     const newDescription =
       this.newDescription === '' ? this.description : this.newDescription;
+
     try {
-      await ApiCallsHelper.modifyAlbum(this.album._id, {
-        description: newDescription,
-      });
-      dataModule[SET_ALBUM_DESCRIPTION]({
+      await adminModule[SUBMIT_ALBUM_DESCRIPTION]({
         albumId: this.album._id,
         newDescription,
       });
       this.isLoadingSumbission = false;
       this.dialog = false;
     } catch (error) {
-      errorModule[SHOW_REQUEST_ERROR]({
-        errorText: 'Oops, your submission failed...',
-      });
       this.isLoadingSumbission = false;
     }
   }
