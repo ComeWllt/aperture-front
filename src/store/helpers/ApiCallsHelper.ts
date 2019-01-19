@@ -22,4 +22,15 @@ export default class ApiCallsHelper {
     );
     return result.data[0];
   }
+
+  public static async modifyAlbum(
+    albumId: string,
+    modifedAlbum: any
+  ): Promise<void> {
+    const apiConfig = store.state.LoginModule.apiConfig;
+    const backendURL = `${
+      store.state.LoginModule.backendURL
+    }/api/albums/${albumId}`;
+    await axios.put(backendURL, modifedAlbum, apiConfig);
+  }
 }
