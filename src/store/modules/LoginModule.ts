@@ -45,7 +45,9 @@ export default class LoginModule extends VuexModule {
       return;
     }
     this.isLoggedIn = false;
+    this.isAdmin = false;
     Cookies.remove('token');
+    Cookies.remove('admin');
     this.apiConfig.headers.Authorization = 'JWT null';
     router.push({
       path: '/login',
